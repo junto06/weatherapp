@@ -39,4 +39,5 @@ ext {
     androidXEspresso = '3.2.0'
     retrofitVersion = '2.3.0'
     mockitoVersion = '2.8.9'
+    rxAndroid = '2.0.1'
 }
