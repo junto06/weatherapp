@@ -1,5 +1,7 @@
 package com.weatherapp.mockfactory
 
+import com.weatherapp.data.model.City
+import com.weatherapp.data.model.SearchResult
 import com.weatherapp.data.repo.remote.dto.*
 
 /*
@@ -16,5 +18,15 @@ object CityMockResponseFactory{
         val list = CityMockFactory.generateCities()
         val searchResult = SearchResultDTO(list)
         return SearchResponse(search_api = searchResult)
+    }
+
+    fun searchResult(list:List<String>):SearchResult{
+        val cities = mutableListOf<City>()
+
+        for(city in list){
+            cities.add(CityMockFactory.generateCity(city))
+        }
+
+        return SearchResult(cities)
     }
 }
