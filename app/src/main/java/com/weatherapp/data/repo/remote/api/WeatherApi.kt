@@ -1,4 +1,4 @@
-package com.weatherapp.data.repo.remote
+package com.weatherapp.data.repo.remote.api
 
 import com.weatherapp.data.repo.remote.dto.SearchResponse
 import io.reactivex.Observable

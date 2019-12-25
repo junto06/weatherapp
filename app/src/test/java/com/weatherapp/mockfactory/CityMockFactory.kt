@@ -1,5 +1,6 @@
 package com.weatherapp.mockfactory
 
+import com.weatherapp.data.model.City
 import com.weatherapp.data.repo.remote.dto.CityEntry
 import com.weatherapp.data.repo.remote.dto.CityInfo
 
@@ -9,10 +10,18 @@ import com.weatherapp.data.repo.remote.dto.CityInfo
 object CityMockFactory{
 
     fun generateCities():List<CityInfo>{
+        return mutableListOf(generateCityInfo("Punggol"),generateCityInfo("Serangoon"))
+    }
+
+    fun generateCitiesList():List<City>{
         return mutableListOf(generateCity("Punggol"),generateCity("Serangoon"))
     }
 
-    fun generateCity(cityName:String):CityInfo{
+    fun generateCity(name:String):City{
+        return City(name,"Singapore","")
+    }
+
+    fun generateCityInfo(cityName:String):CityInfo{
         val areaName = listOf(entry(cityName))
         val country = listOf(entry("Singapore"))
         val region = listOf(empty())

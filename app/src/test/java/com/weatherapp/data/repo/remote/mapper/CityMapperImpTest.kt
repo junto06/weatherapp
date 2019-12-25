@@ -3,6 +3,7 @@ package com.weatherapp.data.repo.remote.mapper
 import com.google.common.truth.Truth.assertThat
 import com.weatherapp.di.DaggerTestComponent
 import com.weatherapp.mockfactory.CityMockFactory
+import com.weatherapp.mockfactory.CityMockResponseFactory
 import org.junit.Test
 
 import org.junit.Before
@@ -10,6 +11,7 @@ import javax.inject.Inject
 
 class CityMapperImpTest {
 
+    //subject under test
     @Inject
     lateinit var cityMapper: CityMapper
 
@@ -17,6 +19,32 @@ class CityMapperImpTest {
     fun testSetup(){
         val testComponent = DaggerTestComponent.create()
         testComponent.inject(this)
+    }
+
+    @Test
+    fun mapSearchResponse_errorResponse_shouldMapToSearchResult() {
+        val errorResponse = CityMockResponseFactory.errorResponse()
+
+        val response = cityMapper.map(errorResponse)
+
+        assertThat(response.hasError).isTrue()
+
+        assertThat(response.errorMessage).isNotEmpty()
+    }
+
+    @Test
+    fun map_searchResponse_shouldMapToSearchResult() {
+        val searchResponse = CityMockResponseFactory.searchResponse()
+
+        val response = cityMapper.map(searchResponse)
+
+        assertThat(response.hasError).isFalse()
+
+        assertThat(response.errorMessage).isEmpty()
+
+        assertThat(response.cityList).isNotEmpty()
+
+        assertThat(response.cityList.size).isEqualTo(2)
     }
 
     @Test
@@ -45,7 +73,7 @@ class CityMapperImpTest {
 
     @Test
     fun map_cityInfo_shouldMatchCity() {
-        val cityInfo = CityMockFactory.generateCity("Senkang")
+        val cityInfo = CityMockFactory.generateCityInfo("Senkang")
 
         val city = cityMapper.map(cityInfo)
 

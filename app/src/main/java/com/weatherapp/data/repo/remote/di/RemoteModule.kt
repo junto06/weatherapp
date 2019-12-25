@@ -1,12 +1,17 @@
 package com.weatherapp.data.repo.remote.di
 
+import com.weatherapp.data.repo.remote.config.DefaultConfig
 import com.weatherapp.data.repo.remote.mapper.CityMapper
 import com.weatherapp.data.repo.remote.mapper.CityMapperImp
-import dagger.Binds
+import com.weatherapp.util.network.HttpConfig
 import dagger.Module
+import dagger.Provides
 
 @Module
-abstract class RemoteModule{
-    @Binds
-    abstract fun mapper(mapper:CityMapperImp): CityMapper
+class RemoteModule{
+    @Provides
+    fun mapper(): CityMapper = CityMapperImp()
+
+    @Provides
+    fun httpConfig():HttpConfig = DefaultConfig.config()
 }

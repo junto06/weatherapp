@@ -1,9 +1,19 @@
 package com.weatherapp.data.repo.remote.dto
 
-data class SearchResponse(val search_api:SearchResult)
+data class SearchResponse(var search_api:SearchResultDTO?=null,var errorResult:ErrorResultDTO?=null)
+
+data class ErrorResultDTO(val data:ErrorDTO)
+
+data class ErrorDTO(val error:List<ErrorEntry>){
+    var errorMessage = ""
+
+    init {
+        errorMessage = error[0].msg
+    }
+}
 
 
-data class SearchResult(val result:List<CityInfo>)
+data class SearchResultDTO(val result:List<CityInfo>)
 
 
 class CityInfo(areaList:List<CityEntry>,countryList:List<CityEntry>,
@@ -20,9 +30,8 @@ class CityInfo(areaList:List<CityEntry>,countryList:List<CityEntry>,
     }
 }
 
-
 class CityEntry(list: List<Map<String,String>>){
-    var value = ""
+    internal var value = ""
 
     init {
         if(list.isNotEmpty()){
@@ -31,4 +40,16 @@ class CityEntry(list: List<Map<String,String>>){
     }
 
     override fun toString(): String = "(value=$value)"
+}
+
+class ErrorEntry(list: List<Map<String,String>>){
+    internal var msg = ""
+
+    init {
+        if(list.isNotEmpty()){
+            msg = requireNotNull(list[0]["msg"])
+        }
+    }
+
+    override fun toString(): String = "(msg=$msg)"
 }
