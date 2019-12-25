@@ -6,8 +6,19 @@ data class SearchResponse(val search_api:SearchResult)
 data class SearchResult(val result:List<CityInfo>)
 
 
-data class CityInfo(val areaName:List<CityEntry>,val country:List<CityEntry>,
-                    val region:List<CityEntry>)
+class CityInfo(areaList:List<CityEntry>,countryList:List<CityEntry>,
+                    regionList:List<CityEntry>){
+
+    var areaName = ""
+    var country = ""
+    var region = ""
+
+    init {
+        areaName = areaList[0].value
+        country = countryList[0].value
+        region = regionList[0].value
+    }
+}
 
 
 class CityEntry(list: List<Map<String,String>>){
