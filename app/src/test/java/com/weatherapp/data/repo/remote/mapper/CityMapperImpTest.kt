@@ -1,18 +1,22 @@
 package com.weatherapp.data.repo.remote.mapper
 
 import com.google.common.truth.Truth.assertThat
+import com.weatherapp.di.DaggerTestComponent
 import com.weatherapp.mockfactory.CityMockFactory
 import org.junit.Test
 
 import org.junit.Before
+import javax.inject.Inject
 
 class CityMapperImpTest {
 
+    @Inject
     lateinit var cityMapper: CityMapper
 
     @Before
     fun testSetup(){
-        cityMapper = CityMapperImp()
+        val testComponent = DaggerTestComponent.create()
+        testComponent.inject(this)
     }
 
     @Test

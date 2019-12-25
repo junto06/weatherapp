@@ -2,8 +2,9 @@ package com.weatherapp.data.repo.remote.mapper
 
 import com.weatherapp.data.model.City
 import com.weatherapp.data.repo.remote.dto.CityInfo
+import javax.inject.Inject
 
-class CityMapperImp:CityMapper{
+class CityMapperImp @Inject constructor():CityMapper{
 
     override fun map(list: List<CityInfo>): List<City> {
         return list.map {
