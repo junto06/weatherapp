@@ -2,7 +2,6 @@ package com.weatherapp.data.repo.remote
 
 import com.google.common.truth.Truth.assertThat
 import com.weatherapp.data.model.SearchResult
-import com.weatherapp.data.repo.CityDataSource
 import com.weatherapp.data.repo.remote.api.WeatherApi
 import com.weatherapp.data.repo.remote.mapper.CityMapper
 import com.weatherapp.mockfactory.CityMockFactory
@@ -34,7 +33,7 @@ class RemoteCityDataSourceTest {
     lateinit var cityMapper: CityMapper
 
     //subject under test
-    lateinit var cityDataSource:CityDataSource
+    lateinit var cityDataSource:RemoteCityDataSource
 
 
     @Before

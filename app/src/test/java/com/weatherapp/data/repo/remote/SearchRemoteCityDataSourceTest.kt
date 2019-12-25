@@ -2,7 +2,6 @@ package com.weatherapp.data.repo.remote
 
 import com.google.common.truth.Truth
 import com.weatherapp.data.model.SearchResult
-import com.weatherapp.data.repo.CityDataSource
 import com.weatherapp.data.repo.remote.api.WeatherApi
 import com.weatherapp.data.repo.remote.dto.SearchResponse
 import com.weatherapp.data.repo.remote.mapper.CityMapper
@@ -30,7 +29,7 @@ class SearchRemoteCityDataSourceTest {
     lateinit var cityMapper: CityMapper
 
     //subject under test
-    lateinit var cityDataSource:CityDataSource
+    lateinit var cityDataSource:RemoteCityDataSource
 
     //setup dependency
     private fun testSetup(response: SearchResponse?){
