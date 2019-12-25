@@ -29,4 +29,8 @@ object CityMockResponseFactory{
 
         return SearchResult(cities)
     }
+
+    fun errorResult(errorMessage:String):SearchResult{
+        return SearchResult(emptyList(),true,errorMessage)
+    }
 }

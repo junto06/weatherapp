@@ -8,4 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppSideMargin">
+        <item name="android:layout_marginStart" >@dimen/home_view_side_margin</item>
+        <item name="android:layout_marginLeft">@dimen/home_view_side_margin</item>
+        <item name="android:layout_marginEnd">@dimen/home_view_side_margin</item>
+        <item name="android:layout_marginRight">@dimen/home_view_side_margin</item>
+        <item name="android:layout_marginTop">@dimen/home_view_top_margin</item>
+        <item name="android:layout_marginBottom">@dimen/home_view_top_margin</item>
+    </style>
+
 </resources>
