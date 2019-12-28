@@ -1,53 +1,57 @@
 package com.weatherapp.data.repo.remote.dto
 
-data class SearchResponse(var search_api:SearchResultDTO?=null,var errorResult:ErrorResultDTO?=null)
+import com.google.gson.annotations.SerializedName
 
-data class ErrorResultDTO(val data:ErrorDTO)
+/*
+    SearchResponse is Data Transfer class which contains response.
+    Response cold be either search result or error.
+    @param searchResults is for search results
+    @param errorResult is mapped in case of error response
+ */
 
-data class ErrorDTO(val error:List<ErrorEntry>){
-    var errorMessage = ""
-
-    init {
-        errorMessage = error[0].msg
-    }
-}
-
+data class SearchResponse(@SerializedName("search_api") var searchResults:SearchResultDTO?=null,
+                          @SerializedName("data") var errorResult:ErrorResultDTO?=null)
 
 data class SearchResultDTO(val result:List<CityInfo>)
 
 
-class CityInfo(areaList:List<CityEntry>,countryList:List<CityEntry>,
-                    regionList:List<CityEntry>){
+data class CityInfo(private val areaName:List<CityEntry>, private val country:List<CityEntry>,
+                    private val region:List<CityEntry>){
 
-    var areaName = ""
-    var country = ""
-    var region = ""
+    fun areaName():String = areaName[0].value
 
-    init {
-        areaName = areaList[0].value
-        country = countryList[0].value
-        region = regionList[0].value
-    }
+    fun country():String = country[0].value
+
+    fun region():String = region[0].value
 }
 
-class CityEntry(list: List<Map<String,String>>){
-    internal var value = ""
+
+class CityEntry(entry: Map<String,String>){
+    var value = ""
 
     init {
-        if(list.isNotEmpty()){
-            value = requireNotNull(list[0]["value"])
+        if(entry.containsKey("value")){
+            value = requireNotNull(entry["value"])
         }
     }
 
-    override fun toString(): String = "(value=$value)"
+    override fun toString(): String = "value=$value"
 }
 
-class ErrorEntry(list: List<Map<String,String>>){
+
+data class ErrorResultDTO(@SerializedName("error") private val error:List<ErrorEntry>){
+
+    fun errorMessage():String = error[0].msg
+
+}
+
+
+class ErrorEntry(entry: Map<String,String>){
     internal var msg = ""
 
     init {
-        if(list.isNotEmpty()){
-            msg = requireNotNull(list[0]["msg"])
+        if(entry.containsKey("msg")){
+            msg = requireNotNull(entry["msg"])
         }
     }
 

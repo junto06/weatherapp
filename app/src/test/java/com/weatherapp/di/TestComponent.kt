@@ -8,8 +8,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [RemoteModule::class,MockRemoteModule::class])
-interface TestComponent:AppComponent{
-    fun inject(target: CityMapperImpTest)
+interface TestComponent{
 
     fun inject(target: SearchRemoteCityDataSourceTest)
 }

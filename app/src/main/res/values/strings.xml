@@ -2,4 +2,5 @@
     <string name="app_name">WeatherApp</string>
     <string name="title_home_screen">Home</string>
     <string name="error_loading_data">Error getting search results</string>
+    <string name="menu_search_city">Search City</string>
 </resources>

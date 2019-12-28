@@ -9,16 +9,17 @@ import org.junit.Test
 import org.junit.Before
 import javax.inject.Inject
 
+/*
+    Unit test
+ */
 class CityMapperImpTest {
 
     //subject under test
-    @Inject
-    lateinit var cityMapper: CityMapper
+    private lateinit var cityMapper: CityMapper
 
     @Before
     fun testSetup(){
-        val testComponent = DaggerTestComponent.create()
-        testComponent.inject(this)
+        cityMapper = CityMapperImp()
     }
 
     @Test
@@ -61,12 +62,12 @@ class CityMapperImpTest {
 
             it.apply {
                 assertThat(name).isNotEmpty()
-                assertThat(name).isEqualTo(cityInfo.areaName)
+                assertThat(name).isEqualTo(cityInfo.areaName())
 
                 assertThat(country).isNotEmpty()
-                assertThat(country).isEqualTo(cityInfo.country)
+                assertThat(country).isEqualTo(cityInfo.country())
 
-                assertThat(region).isEqualTo(cityInfo.region)
+                assertThat(region).isEqualTo(cityInfo.region())
             }
         }
     }
@@ -79,12 +80,12 @@ class CityMapperImpTest {
 
         city.apply {
             assertThat(name).isNotEmpty()
-            assertThat(name).isEqualTo(cityInfo.areaName)
+            assertThat(name).isEqualTo(cityInfo.areaName())
 
             assertThat(country).isNotEmpty()
-            assertThat(country).isEqualTo(cityInfo.country)
+            assertThat(country).isEqualTo(cityInfo.country())
 
-            assertThat(region).isEqualTo(cityInfo.region)
+            assertThat(region).isEqualTo(cityInfo.region())
         }
     }
 }

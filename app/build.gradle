@@ -32,6 +32,11 @@ android {
             java.srcDir 'src/sharedTest/java'
         }
     }
+
+    dataBinding {
+        enabled = true
+        enabledForTests = true
+    }
 }
 
 dependencies {
@@ -40,6 +45,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidXAppCompatVersion"
     implementation "androidx.core:core-ktx:$androidXCoreVersion"
     implementation "androidx.constraintlayout:constraintlayout:$androidXConstraintLayout"
+    implementation "androidx.lifecycle:lifecycle-extensions:$androidXVMProvider"
 
     //Testing
     testImplementation "junit:junit:$junitVersion"
@@ -67,4 +73,6 @@ dependencies {
     //Navigation component
     implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+
+    implementation("com.squareup.okhttp3:logging-interceptor:4.2.1")
 }

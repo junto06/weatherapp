@@ -13,7 +13,6 @@ class RemoteCityDataSource @Inject constructor(private val httpConfig: HttpConfi
                                                private val weatherApi:WeatherApi,
                                                private val cityMapper: CityMapper):CityDataSource{
     override fun searchCity(cityName: String): Observable<SearchResult> {
-
         return weatherApi.searchCity(httpConfig.apiKey(),httpConfig.format(),cityName)
             .map {
                 cityMapper.map(it)

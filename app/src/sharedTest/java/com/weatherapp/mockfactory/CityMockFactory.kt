@@ -31,10 +31,10 @@ object CityMockFactory{
 
     private fun entry(content:String): CityEntry{
         val entry = mapOf("value" to content)
-        return CityEntry(listOf(entry))
+        return CityEntry(entry)
     }
 
     private fun empty(): CityEntry{
-        return CityEntry(listOf())
+        return CityEntry(emptyMap())
     }
 }
