@@ -9,7 +9,7 @@ import com.weatherapp.R
 import com.weatherapp.data.model.City
 import com.weatherapp.databinding.HomeListItemBinding
 
-class HomeAdapter(): RecyclerView.Adapter<HomeViewItem>(){
+open class HomeAdapter(private val adapterAction: HomeAdapterAction): RecyclerView.Adapter<HomeViewItem>(){
 
     private var cityData = mutableListOf<City>()
 
@@ -29,6 +29,8 @@ class HomeAdapter(): RecyclerView.Adapter<HomeViewItem>(){
 
         val viewBinding = DataBindingUtil.inflate<HomeListItemBinding>(inflater,
             R.layout.home_list_item,parent,false)
+
+        viewBinding.adapterAction = adapterAction
 
         return HomeViewItem(viewBinding)
     }

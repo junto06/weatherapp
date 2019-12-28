@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.weatherapp.R
 import com.weatherapp.data.model.City
 import com.weatherapp.domain.usecase.SearchRepo
+import com.weatherapp.util.EspressonResourceIdling
 import com.weatherapp.util.Event
 import com.weatherapp.util.scheduler.IScheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -32,11 +33,17 @@ class HomeViewModel @Inject constructor(private val searchRepo: SearchRepo,
 
     fun search(query:String){
         subject.onNext(query)
+        EspressonResourceIdling.idle(false)
     }
 
     private fun setupSearch(){
         val disposable = subject.debounce(400,TimeUnit.MILLISECONDS)
-            .filter { it.isNotEmpty() }
+            .filter {
+                if(it.isEmpty()){
+                    EspressonResourceIdling.idle(true)
+                }
+                it.isNotEmpty()
+            }
             .distinctUntilChanged()
             .switchMap ({
                 searchRepo.searchCity(it)
@@ -44,13 +51,14 @@ class HomeViewModel @Inject constructor(private val searchRepo: SearchRepo,
             },1)
             .observeOn(scheduler.main())
             .subscribe ({
+                EspressonResourceIdling.idle(true)
                 if(it.hasError){
                     _error.value = Event(it.errorMessage)
                 }else{
                     _data.value = it.cityList
                 }
             },{
-                it.printStackTrace()
+                EspressonResourceIdling.idle(true)
                 _error.value = Event(R.string.error_loading_data)
 
             })

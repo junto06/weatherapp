@@ -16,6 +16,10 @@ object CityMockResponseFactory{
 
     fun searchResponse():SearchResponse{
         val list = CityMockFactory.generateCities()
+        return searchResponse(list)
+    }
+
+    fun searchResponse(list:List<CityInfo>):SearchResponse{
         val searchResult = SearchResultDTO(list)
         return SearchResponse(searchResults = searchResult)
     }

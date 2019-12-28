@@ -9,10 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.weatherapp.R
+import com.weatherapp.data.model.City
 import com.weatherapp.databinding.HomeFragmentBinding
 import com.weatherapp.ui.home.adapter.HomeAdapter
+import com.weatherapp.ui.home.adapter.HomeAdapterAction
 import com.weatherapp.util.EventHandler
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -35,7 +38,12 @@ class HomeFragment:Fragment(){
         homeViewModel = ViewModelProviders.of(this,viewModelFactory).
             get(HomeViewModel::class.java)
 
-        homeAdapter = HomeAdapter()
+        homeAdapter = HomeAdapter(object: HomeAdapterAction{
+            override fun onCityDetails(item: City) {
+                val action = HomeFragmentDirections.actionCityDetails(item)
+                findNavController().navigate(action)
+            }
+        })
     }
 
     override fun onCreateView(

@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
 
@@ -15,7 +17,7 @@ android {
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.weatherapp.runner.EspressoTestRunner"
     }
     buildTypes {
         release {
@@ -37,6 +39,10 @@ android {
         enabled = true
         enabledForTests = true
     }
+
+    androidExtensions {
+        experimental = true
+    }
 }
 
 dependencies {
@@ -54,6 +60,9 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidXjunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidXEspresso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$androidXEspresso"
+    debugImplementation "androidx.test:core:$androidXTestCoreVersion"
+    implementation "androidx.test.espresso:espresso-idling-resource:$androidXEspresso"
 
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -69,10 +78,9 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
 
     //Navigation component
     implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
-
-    implementation("com.squareup.okhttp3:logging-interceptor:4.2.1")
 }
