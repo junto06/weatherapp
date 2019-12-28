@@ -5,9 +5,10 @@ import com.weatherapp.data.model.SearchResult
 import com.weatherapp.data.repo.remote.api.WeatherApi
 import com.weatherapp.data.repo.remote.dto.SearchResponse
 import com.weatherapp.data.repo.remote.mapper.CityMapper
+import com.weatherapp.data.repo.remote.mapper.WeatherMapper
 import com.weatherapp.di.DaggerTestComponent
 import com.weatherapp.di.MockRemoteModule
-import com.weatherapp.mockfactory.CityMockResponseFactory
+import com.weatherapp.mockfactory.MockResponseFactory
 import com.weatherapp.util.network.HttpConfig
 import org.junit.Test
 import java.lang.Exception
@@ -28,24 +29,27 @@ class SearchRemoteCityDataSourceTest {
     @Inject
     lateinit var cityMapper: CityMapper
 
+    @Inject
+    lateinit var weatherMapper: WeatherMapper
+
     //subject under test
-    lateinit var cityDataSource:RemoteCityDataSource
+    lateinit var dataSource:RemoteDataSource
 
     //setup dependency
     private fun testSetup(response: SearchResponse?){
         val testComponent = DaggerTestComponent.builder().mockRemoteModule(MockRemoteModule(response)).build()
         testComponent.inject(this)
-        cityDataSource = RemoteCityDataSource(httpConfig,weatherApi,cityMapper)
+        dataSource = RemoteDataSource(httpConfig,weatherApi,cityMapper,weatherMapper)
     }
 
     @Test
     fun searchCity_ShouldReturnSearchResult() {
         //setup dependencies
-        val response = CityMockResponseFactory.searchResponse()
+        val response = MockResponseFactory.searchResponse()
         testSetup(response)
 
         //test searchCity
-        var testObserver = cityDataSource.searchCity("Punggol").test()
+        var testObserver = dataSource.searchCity("Punggol").test()
 
         testObserver.awaitTerminalEvent()
         testObserver.assertValueCount(1)
@@ -66,11 +70,11 @@ class SearchRemoteCityDataSourceTest {
     @Test
     fun searchCity_CityNotFound_ShouldReturnErrorResponse() {
         //setup dependencies
-        val response = CityMockResponseFactory.errorResponse()
+        val response = MockResponseFactory.errorResponse()
         testSetup(response)
 
         //test searchCity
-        var testObserver = cityDataSource.searchCity("Senkang").test()
+        var testObserver = dataSource.searchCity("Senkang").test()
 
         testObserver.awaitTerminalEvent()
         testObserver.assertValueCount(1)
@@ -92,7 +96,7 @@ class SearchRemoteCityDataSourceTest {
         testSetup(null)
 
         //test searchCity
-        var testObserver = cityDataSource.searchCity("Senkang").test()
+        var testObserver = dataSource.searchCity("Senkang").test()
 
         testObserver.awaitTerminalEvent()
         testObserver.assertValueCount(0)

@@ -2,13 +2,11 @@ package com.weatherapp.domain.usecase
 
 import com.google.common.truth.Truth
 import com.weatherapp.data.model.SearchResult
-import com.weatherapp.data.repo.CityDataSource
-import com.weatherapp.mockfactory.CityMockFactory
-import com.weatherapp.mockfactory.CityMockResponseFactory
+import com.weatherapp.data.repo.DataSource
+import com.weatherapp.mockfactory.MockResponseFactory
 import io.reactivex.Observable
 import org.junit.Test
 
-import org.junit.Assert.*
 import org.junit.Before
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
@@ -18,7 +16,7 @@ import org.mockito.MockitoAnnotations
 class SearchRepoImpTest {
 
     @Mock
-    lateinit var cityDataSource: CityDataSource
+    lateinit var cityDataSource: DataSource
 
     //subject under test
     lateinit var searchRepo: SearchRepoImp
@@ -34,7 +32,7 @@ class SearchRepoImpTest {
         //search cities start with
         val cityName = "Se"
 
-        val cities = CityMockResponseFactory.searchResult(listOf("Senkang","Serangoon","Punggol"))
+        val cities = MockResponseFactory.searchResult(listOf("Senkang","Serangoon","Punggol"))
 
         `when`(cityDataSource.searchCity(anyString())).thenReturn(Observable.just(cities))
 
@@ -63,7 +61,7 @@ class SearchRepoImpTest {
         //search cities start with
         val cityName = "xyz"
 
-        val cities = CityMockResponseFactory.searchResult(listOf("Senkang","Serangoon","Punggol"))
+        val cities = MockResponseFactory.searchResult(listOf("Senkang","Serangoon","Punggol"))
 
         `when`(cityDataSource.searchCity(anyString())).thenReturn(Observable.just(cities))
 

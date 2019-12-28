@@ -7,7 +7,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class MockRemoteModule(private val response: SearchResponse? = null){
+class MockRemoteModule(private val response: Any? = null){
     @Provides
     fun weatherApi():WeatherApi{
         return MockWeatherApi(response)

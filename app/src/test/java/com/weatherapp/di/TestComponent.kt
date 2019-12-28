@@ -1,5 +1,6 @@
 package com.weatherapp.di
 
+import com.weatherapp.data.repo.remote.CurrentWeatherRemoteDataSourceTest
 import com.weatherapp.data.repo.remote.SearchRemoteCityDataSourceTest
 import com.weatherapp.data.repo.remote.di.RemoteModule
 import com.weatherapp.data.repo.remote.mapper.CityMapperImpTest
@@ -11,4 +12,6 @@ import javax.inject.Singleton
 interface TestComponent{
 
     fun inject(target: SearchRemoteCityDataSourceTest)
+
+    fun inject(target: CurrentWeatherRemoteDataSourceTest)
 }

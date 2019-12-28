@@ -4,4 +4,5 @@
     <string name="error_loading_data">Error getting search results</string>
     <string name="menu_search_city">Search City</string>
     <string name="title_details_screen">Weather Details</string>
+    <string name="error_loading_weather_data">Error getting weather data</string>
 </resources>

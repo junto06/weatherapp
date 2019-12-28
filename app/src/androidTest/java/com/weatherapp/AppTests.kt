@@ -35,11 +35,12 @@ class AppTests{
         IdlingRegistry.getInstance().register(EspressonResourceIdling)
     }
 
+    fun unregister(){
+        IdlingRegistry.getInstance().unregister(EspressonResourceIdling)
+    }
+
     @Test
     fun testApplication() {
-
-        val testApp = InstrumentationRegistry.getInstrumentation().targetContext.
-            applicationContext as TestApp
 
         //start activity
         ActivityScenario.launch(MainActivity::class.java)

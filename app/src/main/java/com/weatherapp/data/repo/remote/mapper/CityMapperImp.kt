@@ -6,6 +6,9 @@ import com.weatherapp.data.repo.remote.dto.CityInfo
 import com.weatherapp.data.repo.remote.dto.SearchResponse
 import javax.inject.Inject
 
+/*
+    City DTO to domain entity mapper
+ */
 class CityMapperImp @Inject constructor():CityMapper{
 
     override fun map(searchResponse: SearchResponse): SearchResult {
@@ -26,7 +29,7 @@ class CityMapperImp @Inject constructor():CityMapper{
     }
 
     override fun map(cityInfo: CityInfo): City {
-        return City(cityInfo.areaName(),cityInfo.country(),cityInfo.region())
+        return City(cityInfo.areaName(),cityInfo.country(),cityInfo.region(),cityInfo.latitude,cityInfo.longitude)
     }
 
 }

@@ -26,16 +26,18 @@ object CityMockFactory{
         return mutableListOf(generateCity("Punggol",country),generateCity("Serangoon",country))
     }
 
-    fun generateCity(name:String,country:String = "Singapore"):City{
-        return City(name,country,"")
+    fun generateCity(name:String,country:String = "Singapore",lat:Double = 40.95,
+                     long:Double = 60.71):City{
+        return City(name,country,"",lat,long)
     }
 
-    fun generateCityInfo(cityName:String,country:String = "Singapore"):CityInfo{
+    fun generateCityInfo(cityName:String,country:String = "Singapore",lat:Double = 40.95,
+                         long:Double = 60.71):CityInfo{
         val areaName = listOf(entry(cityName))
         val country = listOf(entry(country))
         val region = listOf(empty())
 
-        return CityInfo(areaName,country,region)
+        return CityInfo(areaName,country,region,lat,long)
     }
 
     private fun entry(content:String): CityEntry{

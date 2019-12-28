@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
 import com.weatherapp.R
 import com.weatherapp.domain.usecase.SearchRepo
-import com.weatherapp.mockfactory.CityMockResponseFactory
+import com.weatherapp.mockfactory.MockResponseFactory
 import com.weatherapp.util.Event
 import com.weatherapp.util.LiveDataTestUtil.getLiveData
 import com.weatherapp.util.scheduler.IScheduler
@@ -47,7 +47,7 @@ class HomeViewModelTest {
     fun search_shouldReturnSearchResult() {
         val list = listOf("Senkang","Serangoon")
 
-        val searchResult = CityMockResponseFactory.searchResult(list)
+        val searchResult = MockResponseFactory.searchResult(list)
 
         //setup mock
         `when`(searchRepo.searchCity(anyString())).thenReturn(Observable.just(searchResult))
@@ -69,7 +69,7 @@ class HomeViewModelTest {
     @Test
     fun search_errorResult_shouldReturnErrorResult() {
 
-        val searchResult = CityMockResponseFactory.errorResult("city not found")
+        val searchResult = MockResponseFactory.errorResult("city not found")
 
         `when`(searchRepo.searchCity(anyString())).thenReturn(Observable.just(searchResult))
 

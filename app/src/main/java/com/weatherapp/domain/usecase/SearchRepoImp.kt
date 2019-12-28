@@ -1,14 +1,14 @@
 package com.weatherapp.domain.usecase
 
 import com.weatherapp.data.model.SearchResult
-import com.weatherapp.data.repo.CityDataSource
+import com.weatherapp.data.repo.DataSource
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class SearchRepoImp @Inject constructor(private val cityDataSource: CityDataSource):SearchRepo{
+class SearchRepoImp @Inject constructor(private val dataSource: DataSource):SearchRepo{
 
     override fun searchCity(cityName: String): Observable<SearchResult> {
-        return cityDataSource.searchCity(cityName)
+        return dataSource.searchCity(cityName)
             .filter { result ->
                 if(!result.hasError){
                     val searchBy = cityName.toLowerCase()

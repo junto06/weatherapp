@@ -16,7 +16,7 @@ data class SearchResultDTO(val result:List<CityInfo>)
 
 
 data class CityInfo(private val areaName:List<CityEntry>, private val country:List<CityEntry>,
-                    private val region:List<CityEntry>){
+                    private val region:List<CityEntry>,val latitude:Double,val longitude:Double){
 
     fun areaName():String = areaName[0].value
 
@@ -27,7 +27,7 @@ data class CityInfo(private val areaName:List<CityEntry>, private val country:Li
 
 
 class CityEntry(entry: Map<String,String>){
-    var value = ""
+    internal var value = ""
 
     init {
         if(entry.containsKey("value")){

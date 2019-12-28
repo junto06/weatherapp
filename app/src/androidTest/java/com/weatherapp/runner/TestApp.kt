@@ -5,7 +5,7 @@ import com.weatherapp.data.repo.remote.dto.CityInfo
 import com.weatherapp.di.DaggerTestAppComponent
 import com.weatherapp.di.MockRemoteModule
 import com.weatherapp.mockfactory.CityMockFactory
-import com.weatherapp.mockfactory.CityMockResponseFactory
+import com.weatherapp.mockfactory.MockResponseFactory
 
 class TestApp: App(){
     override fun buildAndInject() {
@@ -14,7 +14,7 @@ class TestApp: App(){
         val cities = mockTestData()
 
         //mock search response
-        val searchResponse = CityMockResponseFactory.searchResponse(cities)
+        val searchResponse = MockResponseFactory.searchResponse(cities)
 
         //setup dagger
         DaggerTestAppComponent

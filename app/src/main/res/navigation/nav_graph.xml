@@ -12,7 +12,7 @@
             <action android:id="@+id/action_city_details" app:destination="@id/details_fragment"/>
         </fragment>
         <fragment
-            android:id="@+id/details_fragment" android:name="com.weatherapp.ui.details.CityWeatherDetails"
+            android:id="@+id/details_fragment" android:name="com.weatherapp.ui.details.WeatherDetailsFragment"
             android:label="@string/title_details_screen" tools:layout="@layout/city_details_fragment" >
             <argument android:name="cityItem"
                 app:argType="com.weatherapp.data.model.City" />

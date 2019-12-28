@@ -1,13 +1,11 @@
 package com.weatherapp.data.repo.remote.mapper
 
 import com.google.common.truth.Truth.assertThat
-import com.weatherapp.di.DaggerTestComponent
 import com.weatherapp.mockfactory.CityMockFactory
-import com.weatherapp.mockfactory.CityMockResponseFactory
+import com.weatherapp.mockfactory.MockResponseFactory
 import org.junit.Test
 
 import org.junit.Before
-import javax.inject.Inject
 
 /*
     Unit test
@@ -24,7 +22,7 @@ class CityMapperImpTest {
 
     @Test
     fun mapSearchResponse_errorResponse_shouldMapToSearchResult() {
-        val errorResponse = CityMockResponseFactory.errorResponse()
+        val errorResponse = MockResponseFactory.errorResponse()
 
         val response = cityMapper.map(errorResponse)
 
@@ -35,7 +33,7 @@ class CityMapperImpTest {
 
     @Test
     fun map_searchResponse_shouldMapToSearchResult() {
-        val searchResponse = CityMockResponseFactory.searchResponse()
+        val searchResponse = MockResponseFactory.searchResponse()
 
         val response = cityMapper.map(searchResponse)
 
