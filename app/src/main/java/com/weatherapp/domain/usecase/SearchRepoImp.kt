@@ -11,8 +11,10 @@ class SearchRepoImp @Inject constructor(private val cityDataSource: CityDataSour
         return cityDataSource.searchCity(cityName)
             .filter { result ->
                 if(!result.hasError){
+                    val searchBy = cityName.toLowerCase()
                     val filtered = result.cityList.filter { city ->
-                        city.name.startsWith(cityName) || city.name.contains(cityName)
+                        var cityName = city.name.toLowerCase()
+                        cityName.startsWith(searchBy) || cityName.contains(searchBy)
                     }
                     result.cityList = filtered
                     true

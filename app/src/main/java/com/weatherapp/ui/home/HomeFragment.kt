@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import com.weatherapp.R
 import com.weatherapp.databinding.HomeFragmentBinding
+import com.weatherapp.ui.home.adapter.HomeAdapter
 import com.weatherapp.util.EventHandler
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -25,12 +26,16 @@ class HomeFragment:Fragment(){
 
     private lateinit var dataBinding: HomeFragmentBinding
 
+    private lateinit var homeAdapter:HomeAdapter
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
 
         homeViewModel = ViewModelProviders.of(this,viewModelFactory).
             get(HomeViewModel::class.java)
+
+        homeAdapter = HomeAdapter()
     }
 
     override fun onCreateView(
@@ -54,7 +59,7 @@ class HomeFragment:Fragment(){
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        setupHomeAdapter()
         setupErrorHandler()
     }
 
@@ -92,6 +97,14 @@ class HomeFragment:Fragment(){
 
                 return true
             }
+        })
+    }
+
+    private fun setupHomeAdapter() {
+        dataBinding.cityList.adapter = homeAdapter
+
+        homeViewModel.data.observe(viewLifecycleOwner, Observer {
+            homeAdapter.setCityData(it)
         })
     }
 

@@ -38,26 +38,18 @@ class HomeViewModel @Inject constructor(private val searchRepo: SearchRepo,
         val disposable = subject.debounce(400,TimeUnit.MILLISECONDS)
             .filter { it.isNotEmpty() }
             .distinctUntilChanged()
-            .switchMap {
+            .switchMap ({
                 searchRepo.searchCity(it)
-                    .doOnError {th ->
-                        th.printStackTrace()
-                        _error.value = Event(R.string.error_loading_data)
-                    }
-            }
-            .subscribeOn(scheduler.io())
+                    .subscribeOn(scheduler.io())
+            },1)
             .observeOn(scheduler.main())
             .subscribe ({
-
                 if(it.hasError){
                     _error.value = Event(it.errorMessage)
                 }else{
                     _data.value = it.cityList
                 }
-
-                println(it.toString())
             },{
-
                 it.printStackTrace()
                 _error.value = Event(R.string.error_loading_data)
 

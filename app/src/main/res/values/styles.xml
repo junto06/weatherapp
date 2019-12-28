@@ -17,4 +17,15 @@
         <item name="android:layout_marginBottom">@dimen/home_view_top_margin</item>
     </style>
 
+    <style name="ItemStyleMedium" >
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">none</item>
+    </style>
+
+    <style name="HomeItemStyle" parent="@style/ItemStyleMedium">
+        <item name="android:textColor">@color/colorText</item>
+    </style>
+
 </resources>

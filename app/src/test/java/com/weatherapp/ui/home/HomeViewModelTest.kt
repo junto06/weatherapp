@@ -2,8 +2,10 @@ package com.weatherapp.ui.home
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
+import com.weatherapp.R
 import com.weatherapp.domain.usecase.SearchRepo
 import com.weatherapp.mockfactory.CityMockResponseFactory
+import com.weatherapp.util.Event
 import com.weatherapp.util.LiveDataTestUtil.getLiveData
 import com.weatherapp.util.scheduler.IScheduler
 import com.weatherapp.util.scheduler.TestScheduler
@@ -16,6 +18,7 @@ import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
+import java.lang.Exception
 
 class HomeViewModelTest {
 
@@ -79,10 +82,34 @@ class HomeViewModelTest {
 
         assertThat(error).isNotNull()
 
-        val result = error as String
+        val event = error as Event<String>
+
+        val result = event.getEventData()
 
         assertThat(result).isNotEmpty()
 
         assertThat(result).isEqualTo("city not found")
+    }
+
+    @Test
+    fun search_errorResultException_shouldReturnErrorResult() {
+
+        `when`(searchRepo.searchCity(anyString())).
+            thenReturn(Observable.error(Exception("Mock exception")))
+
+        val searchWord = "ab"
+
+        //test
+        homeViewModel.search(searchWord)
+
+        val error = getLiveData(homeViewModel.error)
+
+        assertThat(error).isNotNull()
+
+        val event = error as Event<Int>
+
+        val result = event.getEventData()
+
+        assertThat(result).isEqualTo(R.string.error_loading_data)
     }
 }
