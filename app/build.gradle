@@ -83,4 +83,7 @@ dependencies {
     //Navigation component
     implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+
+    //Image Loading
+    implementation "com.facebook.fresco:fresco:$frescoVersion"
 }

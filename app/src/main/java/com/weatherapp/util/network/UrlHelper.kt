@@ -12,4 +12,12 @@ object UrlHelper{
         }
         return false
     }
+
+    fun validateHttps(url:String):String{
+        var httpUrl = url
+        if(!httpUrl.startsWith("https://")){
+            httpUrl = httpUrl.replace("http://","https://")
+        }
+        return httpUrl
+    }
 }

@@ -31,6 +31,10 @@ class WeatherDetailsFragment:Fragment(){
 
         weatherDetailsViewModel = ViewModelProviders.of(this,viewModelFactory).
             get(WeatherDetailsViewModel::class.java)
+
+        val city = WeatherDetailsFragmentArgs.fromBundle(requireNotNull(arguments)).cityItem
+
+        weatherDetailsViewModel.loadWeather(city)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -67,10 +71,6 @@ class WeatherDetailsFragment:Fragment(){
         }
 
         dataBinding.lifecycleOwner = viewLifecycleOwner
-
-        val city = WeatherDetailsFragmentArgs.fromBundle(requireNotNull(arguments)).cityItem
-
-        weatherDetailsViewModel.loadWeather(city)
 
         return dataBinding.root
     }

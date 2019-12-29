@@ -8,12 +8,14 @@ import com.weatherapp.data.model.CurrentWeather
 import com.weatherapp.domain.usecase.WeatherRepo
 import com.weatherapp.util.EspressonResourceIdling
 import com.weatherapp.util.Event
+import com.weatherapp.util.android.imageloading.ImageLoader
 import com.weatherapp.util.scheduler.IScheduler
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class WeatherDetailsViewModel @Inject constructor(private val weatherRepo: WeatherRepo,
-                                                  private val scheduler: IScheduler):ViewModel(){
+                                                  private val scheduler: IScheduler,
+                                                  val imageLoader: ImageLoader):ViewModel(){
 
     //error state
     private val _error = MutableLiveData<Event<Int>>()

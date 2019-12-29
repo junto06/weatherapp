@@ -8,6 +8,7 @@ import com.weatherapp.data.model.CurrentWeather
 import com.weatherapp.domain.usecase.WeatherRepo
 import com.weatherapp.util.Event
 import com.weatherapp.util.LiveDataTestUtil
+import com.weatherapp.util.android.imageloading.ImageLoader
 import com.weatherapp.util.scheduler.IScheduler
 import com.weatherapp.util.scheduler.TestScheduler
 import io.reactivex.Observable
@@ -32,6 +33,9 @@ class WeatherDetailsViewModelTest {
 
     private lateinit var scheduler: IScheduler
 
+    @Mock
+    lateinit var imageLoader: ImageLoader
+
     //run async operation in synchronous way
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
@@ -42,7 +46,7 @@ class WeatherDetailsViewModelTest {
 
         scheduler = TestScheduler()
 
-        weatherViewModel = WeatherDetailsViewModel(weatherRepo,scheduler)
+        weatherViewModel = WeatherDetailsViewModel(weatherRepo,scheduler,imageLoader)
     }
 
     @Test

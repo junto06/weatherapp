@@ -8,6 +8,7 @@ import com.weatherapp.data.repo.remote.di.RemoteModule
 import com.weatherapp.domain.di.UseCaseModule
 import com.weatherapp.ui.base.FragmentModule
 import com.weatherapp.ui.base.ViewModelModule
+import com.weatherapp.util.android.imageloading.di.ImageLoadingModule
 import com.weatherapp.util.scheduler.SchedulerModule
 import dagger.BindsInstance
 import dagger.Component
@@ -17,7 +18,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [RemoteModule::class,NetworkModule::class, RepoModule::class,
     UseCaseModule::class, SchedulerModule::class,ViewModelModule::class, FragmentModule::class,
-    AndroidInjectionModule::class])
+    AndroidInjectionModule::class, ImageLoadingModule::class])
 interface AppComponent{
     @Component.Builder
     interface Builder {

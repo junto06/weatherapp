@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [RemoteModule::class, MockRemoteModule::class, RepoModule::class,
     UseCaseModule::class, SchedulerModule::class, ViewModelModule::class, FragmentModule::class,
-    AndroidInjectionModule::class])
+    AndroidInjectionModule::class, MockImageModule::class])
 interface TestAppComponent:AppComponent{
     @Component.Builder
     interface Builder {

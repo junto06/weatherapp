@@ -1,6 +1,7 @@
 package com.weatherapp
 
 import android.app.Application
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.weatherapp.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -18,6 +19,8 @@ open class App:Application(), HasAndroidInjector {
     override fun onCreate() {
         super.onCreate()
         instance = this
+
+        Fresco.initialize(this)
 
         buildAndInject()
     }

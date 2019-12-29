@@ -14,13 +14,14 @@ import com.weatherapp.ui.MainActivity
 import com.weatherapp.ui.home.adapter.HomeAdapter
 import com.weatherapp.ui.home.adapter.HomeViewItem
 import com.weatherapp.util.EspressonResourceIdling
+import com.weatherapp.util.validateDrawable
 import com.weatherapp.util.viewMatcherRecyclerView
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
 /*
-    These are end to end tests
+    These are end to end tests of complete application flow.
  */
 
 @MediumTest
@@ -37,7 +38,7 @@ class AppTests{
     }
 
     @Test
-    fun testApplication() {
+    fun testApplicationFlow() {
 
         //start activity
         ActivityScenario.launch(MainActivity::class.java)
@@ -118,22 +119,33 @@ class AppTests{
         //check WeatherDetailsFragment is visible
         onView(withId(R.id.detailsFragment)).check(matches(isDisplayed()))
 
+        //check city name
         onView(withId(R.id.cityName))
             .check(matches(withText("New York")))
 
+        //check temperature in celsius
         onView(withId(R.id.temperature))
             .check(matches(withText("7°")))
 
+        //current weather description
         onView(withId(R.id.weather))
             .check(matches(withText("Haze")))
 
+        //temperature in Fahrenheit
         onView(withId(R.id.temperatureF))
             .check(matches(withText("45 °F")))
 
+        //check humidity
         onView(withId(R.id.humidity))
             .check(matches(withText("Humidity 82")))
 
+        //check update time
         onView(withId(R.id.lastUpdated))
             .check(matches(withText("Updated at 01:53 PM")))
+
+        //check image drawable
+        //drawable should not null
+        onView(withId(R.id.weatherImage))
+            .check(matches(validateDrawable()))
     }
 }

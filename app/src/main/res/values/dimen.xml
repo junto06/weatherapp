@@ -5,4 +5,9 @@
 
     <dimen name="line_margin_top">10dp</dimen>
 
+    <dimen name="temperature_text_size">90sp</dimen>
+
+    <dimen name="weather_info_image_height">72dp</dimen>
+    <dimen name="weather_info_image_width">72dp</dimen>
+
 </resources>

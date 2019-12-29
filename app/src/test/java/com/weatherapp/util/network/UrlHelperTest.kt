@@ -26,4 +26,18 @@ class UrlHelperTest {
         val baseUrl = "http://test.com/"
         assertThat(UrlHelper.isValidUrl(baseUrl)).isTrue()
     }
+
+    @Test
+    fun validateHttps_httpUrl_ShouldBeConvertedToHttps() {
+        //http url
+        val baseUrl = "http://test.com/"
+        assertThat(UrlHelper.validateHttps(baseUrl)).isEqualTo("https://test.com/")
+    }
+
+    @Test
+    fun validateHttps_httpsUrl_ShouldReturnSame() {
+        //https url
+        val baseUrl = "https://test.com/"
+        assertThat(UrlHelper.validateHttps(baseUrl)).isEqualTo("https://test.com/")
+    }
 }

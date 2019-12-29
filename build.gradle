@@ -47,4 +47,5 @@ ext {
     archTestingVersion = '2.0.0'
     androidXVMProvider = '2.1.0'
     androidXTestCoreVersion = '1.2.0'
+    frescoVersion = '2.0.0'
 }
