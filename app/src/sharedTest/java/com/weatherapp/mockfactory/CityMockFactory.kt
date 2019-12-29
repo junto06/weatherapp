@@ -26,6 +26,14 @@ object CityMockFactory{
         return mutableListOf(generateCity("Punggol",country),generateCity("Serangoon",country))
     }
 
+    fun generateCitiesList(list:List<String>,country:String = "Singapore"):List<City>{
+        val cities = mutableListOf<City>()
+        for(city in list){
+            cities.add(generateCity(city,country))
+        }
+        return cities
+    }
+
     fun generateCity(name:String,country:String = "Singapore",lat:Double = 40.95,
                      long:Double = 60.71):City{
         return City(name,country,"",lat,long)

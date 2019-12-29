@@ -124,7 +124,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun loadRecentCities_shouldHaveData(){
+    fun loadRecentCities_shouldHaveDataByDefault(){
 
         //should have data on initialization
 
@@ -135,6 +135,22 @@ class HomeViewModelTest {
         assertThat(data).isNotEmpty()
 
         assertThat(data.size).isEqualTo(2)
+    }
+
+    @Test
+    fun loadRecentCities_shouldLoadDataFromDB(){
+        val cities = CityMockFactory.generateCitiesList(listOf("New York","California","DC"),"United State")
+        `when`(cityDao.getRecentCities()).thenReturn(Observable.just(cities))
+
+        homeViewModel.loadRecentCities()
+
+        val data = getLiveData(homeViewModel.data)
+
+        assertThat(data).isNotNull()
+
+        assertThat(data).isNotEmpty()
+
+        assertThat(data.size).isEqualTo(3)
     }
 
     @Test

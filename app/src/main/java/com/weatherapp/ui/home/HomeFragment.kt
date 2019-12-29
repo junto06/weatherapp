@@ -87,6 +87,9 @@ class HomeFragment:Fragment(){
          */
         searchView.findViewById<ImageView>(R.id.search_close_btn).setOnClickListener {
             searchView.onActionViewCollapsed()
+
+            //load default cities from db on SearchView close
+            homeViewModel.loadRecentCities()
         }
 
         /*
@@ -95,6 +98,8 @@ class HomeFragment:Fragment(){
         searchView.setOnQueryTextListener(object:SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchView.clearFocus()
+
+                homeViewModel.search(query!!)
 
                 searchView.onActionViewCollapsed()
                 return true

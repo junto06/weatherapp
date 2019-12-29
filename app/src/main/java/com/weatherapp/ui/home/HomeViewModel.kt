@@ -30,10 +30,10 @@ class HomeViewModel @Inject constructor(private val searchRepo: SearchRepo,
 
     init {
         setupSearch()
-        loadCities()
+        loadRecentCities()
     }
 
-    private fun loadCities() {
+    fun loadRecentCities() {
         EspressonResourceIdling.idle(false)
         val disposable =
             cityDao.getRecentCities()
