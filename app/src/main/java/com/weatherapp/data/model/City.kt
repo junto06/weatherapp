@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class City(val name:String,val country:String,val region:String,
                 val latitude:Double,val longitude:Double,
-                var accessTime:Long = System.currentTimeMillis()) : Parcelable{
+                var accessTime:Long = 0) : Parcelable{
 
     fun updateAccessTime(){
         accessTime = System.currentTimeMillis()

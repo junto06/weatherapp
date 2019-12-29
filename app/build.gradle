@@ -91,4 +91,5 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomDbVersion"
     kapt  "androidx.room:room-compiler:$roomDbVersion"
     implementation "androidx.room:room-ktx:$roomDbVersion"
+    implementation "androidx.room:room-rxjava2:$roomDbVersion"
 }

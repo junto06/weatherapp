@@ -3,7 +3,9 @@ package com.weatherapp.ui.home
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
 import com.weatherapp.R
+import com.weatherapp.data.storage.CityDao
 import com.weatherapp.domain.usecase.SearchRepo
+import com.weatherapp.mockfactory.CityMockFactory
 import com.weatherapp.mockfactory.MockResponseFactory
 import com.weatherapp.util.Event
 import com.weatherapp.util.LiveDataTestUtil.getLiveData
@@ -23,12 +25,15 @@ import java.lang.Exception
 class HomeViewModelTest {
 
     //subject under test
-    lateinit var homeViewModel: HomeViewModel
+    private lateinit var homeViewModel: HomeViewModel
 
     @Mock
-    lateinit var searchRepo: SearchRepo
+    private lateinit var searchRepo: SearchRepo
 
     private lateinit var scheduler: IScheduler
+
+    @Mock
+    private lateinit var cityDao: CityDao
 
     //run async operation in synchronous way
     @get:Rule
@@ -40,7 +45,11 @@ class HomeViewModelTest {
 
         scheduler = TestScheduler()
 
-        homeViewModel = HomeViewModel(searchRepo,scheduler)
+        //setup mock for initialization
+        val cities = CityMockFactory.generateCitiesList("United States")
+        `when`(cityDao.getRecentCities()).thenReturn(Observable.just(cities))
+
+        homeViewModel = HomeViewModel(searchRepo,scheduler,cityDao)
     }
 
     @Test
@@ -48,6 +57,7 @@ class HomeViewModelTest {
         val list = listOf("Senkang","Serangoon")
 
         val searchResult = MockResponseFactory.searchResult(list)
+
 
         //setup mock
         `when`(searchRepo.searchCity(anyString())).thenReturn(Observable.just(searchResult))
@@ -111,5 +121,52 @@ class HomeViewModelTest {
         val result = event.getEventData()
 
         assertThat(result).isEqualTo(R.string.error_loading_data)
+    }
+
+    @Test
+    fun loadRecentCities_shouldHaveData(){
+
+        //should have data on initialization
+
+        val data = getLiveData(homeViewModel.data)
+
+        assertThat(data).isNotNull()
+
+        assertThat(data).isNotEmpty()
+
+        assertThat(data.size).isEqualTo(2)
+    }
+
+    @Test
+    fun refreshOnCityDetails(){
+
+        //list should be sorted based on access time
+
+        //choose 2nd item from list so it can be on the top after refresh
+        var data = getLiveData(homeViewModel.data)
+
+        var city = data[1]
+
+        //first access time should be zero as its a new item
+        assertThat(city.accessTime).isEqualTo(0)
+        //choose city name should also match
+        assertThat(city.name).isEqualTo("Serangoon")
+
+        //test
+        homeViewModel.refreshOnCityDetails(city)
+
+        assertThat(city.accessTime > 0).isTrue()
+
+        data = getLiveData(homeViewModel.data)
+
+        assertThat(data).isNotNull()
+
+        assertThat(data).isNotEmpty()
+
+        assertThat(data.size).isEqualTo(2)
+
+        assertThat(data[0].name).isEqualTo("Serangoon")
+
+        assertThat(data[1].name).isEqualTo("Punggol")
     }
 }

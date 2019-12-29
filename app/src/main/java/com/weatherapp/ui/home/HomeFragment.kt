@@ -42,6 +42,7 @@ class HomeFragment:Fragment(){
             override fun onCityDetails(item: City) {
                 val action = HomeFragmentDirections.actionCityDetails(item)
                 findNavController().navigate(action)
+                homeViewModel.refreshOnCityDetails(item)
             }
         })
     }

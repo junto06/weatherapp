@@ -10,7 +10,8 @@
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/min_height_home_item"
         android:onClick="@{()->adapterAction.onCityDetails(city)}">
 
         <TextView
@@ -18,6 +19,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/name"
             android:text="@{city.name}"
+            android:layout_gravity="center_vertical"
             style="@style/HomeItemStyle"/>
 
 </LinearLayout>

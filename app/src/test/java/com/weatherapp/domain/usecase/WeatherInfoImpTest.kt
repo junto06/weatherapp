@@ -4,6 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import com.weatherapp.data.model.City
 import com.weatherapp.data.model.CurrentWeather
 import com.weatherapp.data.repo.DataSource
+import com.weatherapp.data.storage.CityDao
 import io.reactivex.Observable
 import org.junit.Test
 
@@ -11,6 +12,7 @@ import org.junit.Before
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
+import org.mockito.Mockito.doNothing
 import org.mockito.MockitoAnnotations
 
 class WeatherInfoImpTest {
@@ -18,13 +20,16 @@ class WeatherInfoImpTest {
     @Mock
     lateinit var dataSource: DataSource
 
+    @Mock
+    lateinit var cityDao:CityDao
+
     //subject under test
     private lateinit var weatherRepo: WeatherRepoImp
 
     @Before
     fun testSetup(){
         MockitoAnnotations.initMocks(this)
-        weatherRepo = WeatherRepoImp(dataSource)
+        weatherRepo = WeatherRepoImp(dataSource,cityDao)
     }
 
 
@@ -36,9 +41,11 @@ class WeatherInfoImpTest {
 
         `when`(dataSource.getCurrentWeather(anyString())).thenReturn(Observable.just(weather))
 
-        //test
         val city = City("New York","United States","",40.9,90.981)
 
+        `when`(cityDao.insertCity(city)).thenReturn(1)
+
+        //test
         var testObserver = weatherRepo.loadCityWeather(city).test()
 
         testObserver.awaitTerminalEvent()
