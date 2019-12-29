@@ -10,18 +10,23 @@ import com.weatherapp.util.EspressonResourceIdling
 import com.weatherapp.util.Event
 import com.weatherapp.util.scheduler.IScheduler
 import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
-class WeatherDetailsViewModel(private val weatherRepo: WeatherRepo,
-                              private val scheduler: IScheduler):ViewModel(){
+class WeatherDetailsViewModel @Inject constructor(private val weatherRepo: WeatherRepo,
+                                                  private val scheduler: IScheduler):ViewModel(){
 
     //error state
-    private val _error = MutableLiveData<Event<Any>>()
-    val error: MutableLiveData<Event<Any>> = _error
+    private val _error = MutableLiveData<Event<Int>>()
+    val error: MutableLiveData<Event<Int>> = _error
 
     private val compositeDisposable = CompositeDisposable()
 
     private val _data = MutableLiveData<CurrentWeather>()
     val data:MutableLiveData<CurrentWeather> = _data
+
+    private val _city = MutableLiveData<City>()
+    val city:MutableLiveData<City> = _city
+
 
     //loading state
     private var _loading:Boolean = false
@@ -33,6 +38,8 @@ class WeatherDetailsViewModel(private val weatherRepo: WeatherRepo,
         }
 
         _loading = true
+
+        this.city.value = city
 
         EspressonResourceIdling.idle(false)
 

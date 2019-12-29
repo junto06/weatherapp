@@ -2,4 +2,7 @@
 <resources>
     <dimen name="home_view_side_margin">20dp</dimen>
     <dimen name="home_view_top_margin">10dp</dimen>
+
+    <dimen name="line_margin_top">10dp</dimen>
+
 </resources>

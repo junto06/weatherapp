@@ -16,10 +16,12 @@ class TestApp: App(){
         //mock search response
         val searchResponse = MockResponseFactory.searchResponse(cities)
 
+        val weatherResponse = MockResponseFactory.mockWeatherResponse()
+
         //setup dagger
         DaggerTestAppComponent
             .builder()
-            .mockRemoteModule(MockRemoteModule(searchResponse))
+            .mockRemoteModule(MockRemoteModule(listOf(searchResponse,weatherResponse)))
             .application(this)
             .create()
             .inject(this)

@@ -1,6 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout>
+    <data>
+        <variable
+            name="detailsViewModel"
+            type="com.weatherapp.ui.details.WeatherDetailsViewModel" />
+    </data>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        style="@style/AppSideMargin"
+        android:id="@+id/detailsFragment">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/cityName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:text="@{detailsViewModel.city.name}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            />
+
+        <TextView
+            android:id="@+id/temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/cityName"
+            android:text="@{String.format(@string/temperature_cent,detailsViewModel.data.temperatureCelsius)}"
+            android:textSize="90sp"
+            />
+
+        <TextView
+            android:id="@+id/weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@{detailsViewModel.data.currentWeather}"
+            android:layout_below="@+id/temperature"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            />
+
+        <TextView
+            android:id="@+id/temperatureF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@{String.format(@string/temperature_f,detailsViewModel.data.temperatureFahrenheit)}"
+            android:layout_below="@+id/weather"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_marginTop="@dimen/line_margin_top"
+            />
+
+        <View
+            android:id="@+id/line"
+            android:layout_below="@+id/temperatureF"
+            android:layout_width="match_parent"
+            android:layout_height="0.01dp"
+            android:layout_marginTop="@dimen/line_margin_top"
+            android:layout_marginBottom="@dimen/line_margin_top"
+            android:background="@color/colorText"/>
+
+        <TextView
+            android:id="@+id/humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@{String.format(@string/humidity,detailsViewModel.data.humidity)}"
+            android:layout_below="@+id/line"
+            android:layout_marginTop="@dimen/line_margin_top"
+            android:layout_marginBottom="@dimen/line_margin_top"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            />
+
+        <View
+            android:id="@+id/line2"
+            android:layout_below="@+id/humidity"
+            android:layout_width="match_parent"
+            android:layout_height="0.01dp"
+            android:layout_marginTop="@dimen/line_margin_top"
+            android:layout_marginBottom="@dimen/line_margin_top"
+            android:background="@color/colorText"/>
+
+        <TextView
+            android:id="@+id/lastUpdated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(@string/updated_at,detailsViewModel.data.observationTime)}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            />
+
+
+    </RelativeLayout>
+</layout>

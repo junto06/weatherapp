@@ -5,4 +5,8 @@
     <string name="menu_search_city">Search City</string>
     <string name="title_details_screen">Weather Details</string>
     <string name="error_loading_weather_data">Error getting weather data</string>
+    <string name="temperature_cent">%1$d°</string>
+    <string name="temperature_f">%1$d °F</string>
+    <string name="updated_at">Updated at %1$s</string>
+    <string name="humidity">Humidity %1$d</string>
 </resources>

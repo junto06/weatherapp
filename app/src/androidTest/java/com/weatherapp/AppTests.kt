@@ -7,12 +7,9 @@ import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.runner.AndroidJUnit4
 import androidx.test.filters.MediumTest
-import androidx.test.platform.app.InstrumentationRegistry
-import com.weatherapp.runner.TestApp
 import com.weatherapp.ui.MainActivity
 import com.weatherapp.ui.home.adapter.HomeAdapter
 import com.weatherapp.ui.home.adapter.HomeViewItem
@@ -118,5 +115,25 @@ class AppTests{
         //open details page
         onView(withId(R.id.cityList)).perform(actionOnItemAtPosition<HomeViewItem>(0, click()))
 
+        //check WeatherDetailsFragment is visible
+        onView(withId(R.id.detailsFragment)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.cityName))
+            .check(matches(withText("New York")))
+
+        onView(withId(R.id.temperature))
+            .check(matches(withText("7°")))
+
+        onView(withId(R.id.weather))
+            .check(matches(withText("Haze")))
+
+        onView(withId(R.id.temperatureF))
+            .check(matches(withText("45 °F")))
+
+        onView(withId(R.id.humidity))
+            .check(matches(withText("Humidity 82")))
+
+        onView(withId(R.id.lastUpdated))
+            .check(matches(withText("Updated at 01:53 PM")))
     }
 }

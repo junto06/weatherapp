@@ -2,6 +2,7 @@ package com.weatherapp.ui.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.weatherapp.ui.details.WeatherDetailsViewModel
 import com.weatherapp.ui.home.HomeViewModel
 import dagger.Binds
 import dagger.MapKey
@@ -19,6 +20,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(HomeViewModel::class)
     abstract fun bindHomeVM(viewModel: HomeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(WeatherDetailsViewModel::class)
+    abstract fun bindDetailsVM(viewModel: WeatherDetailsViewModel): ViewModel
 }
 
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)

@@ -6,29 +6,32 @@ import com.weatherapp.data.repo.remote.dto.SearchResponse
 import io.reactivex.Observable
 import java.lang.Exception
 
-class MockWeatherApi(private val response:Any?):WeatherApi{
+class MockWeatherApi(private val response:List<Any?>):WeatherApi{
     override fun currentWeather(
         key: String,
         format: String,
         q: String
     ): Observable<CurrentWeatherResponse> {
 
-        return if(response == null){
+        val weatherResponse = response[1] as CurrentWeatherResponse?
+
+        return if(weatherResponse == null){
             Observable.error(Exception("Mock exception!!"))
         }else{
-            val mockResponse = response as CurrentWeatherResponse
 
-            Observable.just(mockResponse)
+            Observable.just(weatherResponse)
         }
     }
 
     override fun searchCity(key: String, format: String, q: String): Observable<SearchResponse> {
-        return if(response == null){
+
+        val searchResponse = response[0] as SearchResponse?
+
+        return if(searchResponse == null){
             Observable.error(Exception("Mock exception!!"))
         }else{
-            val mockResponse = response as SearchResponse?
 
-            Observable.just(mockResponse)
+            Observable.just(searchResponse)
         }
     }
 }
