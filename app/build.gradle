@@ -86,4 +86,9 @@ dependencies {
 
     //Image Loading
     implementation "com.facebook.fresco:fresco:$frescoVersion"
+
+    //room db
+    implementation "androidx.room:room-runtime:$roomDbVersion"
+    kapt  "androidx.room:room-compiler:$roomDbVersion"
+    implementation "androidx.room:room-ktx:$roomDbVersion"
 }

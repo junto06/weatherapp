@@ -48,4 +48,5 @@ ext {
     androidXVMProvider = '2.1.0'
     androidXTestCoreVersion = '1.2.0'
     frescoVersion = '2.0.0'
+    roomDbVersion = '2.2.2'
 }
